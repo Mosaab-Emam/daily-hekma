@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>كل يوم حكمة جديدة</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-size: 16px;
+        margin: 0;
+        text-align: center;
+        background: #f5f5f5;
+      }
+
+      #hekma {
+        margin: 2rem;
+        padding: 1rem 0;
+        border: 1px solid #777;
+      }
+
+      #hekma h2 {
+        margin: 0;
+      }
+
+      #hekma p {
+        font-size: 22px;
+        margin: 1rem 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>كل يوم حكمة جديدة</h1>
+    <hr />
+    <section id="hekma">
+      <h2>حكمة اليوم</h2>
+    </section>
+    <div id="remaining"></div>
+    <script>
+      !(function(e) {
+        var t = {};
+        function r(n) {
+          if (t[n]) return t[n].exports;
+          var o = (t[n] = { i: n, l: !1, exports: {} });
+          return e[n].call(o.exports, o, o.exports, r), (o.l = !0), o.exports;
+        }
+        (r.m = e),
+          (r.c = t),
+          (r.d = function(e, t, n) {
+            r.o(e, t) ||
+              Object.defineProperty(e, t, { enumerable: !0, get: n });
+          }),
+          (r.r = function(e) {
+            "undefined" != typeof Symbol &&
+              Symbol.toStringTag &&
+              Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
+              Object.defineProperty(e, "__esModule", { value: !0 });
+          }),
+          (r.t = function(e, t) {
+            if ((1 & t && (e = r(e)), 8 & t)) return e;
+            if (4 & t && "object" == typeof e && e && e.__esModule) return e;
+            var n = Object.create(null);
+            if (
+              (r.r(n),
+              Object.defineProperty(n, "default", { enumerable: !0, value: e }),
+              2 & t && "string" != typeof e)
+            )
+              for (var o in e)
+                r.d(
+                  n,
+                  o,
+                  function(t) {
+                    return e[t];
+                  }.bind(null, o)
+                );
+            return n;
+          }),
+          (r.n = function(e) {
+            var t =
+              e && e.__esModule
+                ? function() {
+                    return e.default;
+                  }
+                : function() {
+                    return e;
+                  };
+            return r.d(t, "a", t), t;
+          }),
+          (r.o = function(e, t) {
+            return Object.prototype.hasOwnProperty.call(e, t);
+          }),
+          (r.p = ""),
+          r((r.s = 0));
+      })([
+        function(e, t) {
+          const r = document.getElementById("hekma"),
+            n = document.getElementById("remaining");
+          (async () => {
+            const e = new Date().getTime();
+            if (localStorage.hekma && localStorage.expiry > e)
+              r.innerHTML += `<p>${localStorage.hekma}</p>`;
+            else {
+              localStorage.removeItem("hekma"),
+                localStorage.removeItem("expiry");
+              const t = await fetch(
+                  "https://dry-waters-17965.herokuapp.com/daily-hekma",
+                  { method: "GET" }
+                ),
+                { text: n } = await t.json();
+              (r.innerHTML += `<p>${n}</p>`),
+                (localStorage.hekma = n),
+                (localStorage.expiry = e + 864e5);
+            }
+            const t = setInterval(() => {
+              const e = Math.floor(
+                  (localStorage.expiry - new Date().getTime()) / 1e3
+                ),
+                r = Math.floor(e / 60 / 60),
+                o = Math.floor((e / 60) % 60),
+                a = e % 60;
+              (n.innerHTML = `\n    ستتاح حكمة جديدة بعد ${r} ساعة و ${o} دقيقة و ${a} ثانية\n  `),
+                0 == r &&
+                  0 == o &&
+                  0 == a &&
+                  (clearInterval(t),
+                  (n.innerHTML = "قم بتحديث الصفحة  لرؤية حكمة اليوم"));
+            }, 1e3);
+          })();
+        }
+      ]);
+    </script>
+  </body>
+</html>
