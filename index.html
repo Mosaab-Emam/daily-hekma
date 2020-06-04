@@ -166,7 +166,7 @@
             else {
               localStorage.removeItem("hekma"),
                 localStorage.removeItem("expiry");
-              const t = await fetch("https://dry-waters-17965/daily-hekma", {
+              const t = await fetch("https://dry-waters-17965.herokuapp.com/daily-hekma", {
                   method: "GET"
                 }),
                 { text: r } = await t.json();
