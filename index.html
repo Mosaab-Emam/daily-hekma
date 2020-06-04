@@ -5,21 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>كل يوم حكمة جديدة</title>
     <style>
+      @font-face {
+        font-family: "29ltbukrabold";
+        src: url("./29ltbukrabold.otf") format("opentype");
+      }
+
+      .secondary-header-color {
+        color: gold;
+      }
+
+      .secondary-bg-color {
+        background: #3737e7;
+      }
+
+      .border {
+        border: 1px solid white;
+        border-radius: 4px;
+      }
+
       * {
         box-sizing: border-box;
       }
 
       body {
-        font-size: 16px;
+        font-family: "29ltbukrabold";
+        background: #ff003f;
+        font-size: 14px;
         margin: 0;
         text-align: center;
-        background: #f5f5f5;
+        height: 100vh;
+        color: white;
+      }
+
+      h3 {
+        margin-top: 2rem;
+      }
+
+      h1 {
+        font-size: 20px;
+        margin: 0 2rem;
+        padding: 0.75rem 0;
       }
 
       #hekma {
-        margin: 2rem;
-        padding: 1rem 0;
-        border: 1px solid #777;
+        margin: 1.5rem 2rem;
+        padding: 1rem;
       }
 
       #hekma h2 {
@@ -27,58 +57,89 @@
       }
 
       #hekma p {
-        font-size: 22px;
-        margin: 1rem 0 0;
+        font-size: 18px;
+        margin: 2rem 0;
+        line-height: 1.5;
+      }
+
+      #remaining {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #time {
+        margin: 0 0.5rem;
+        padding: 0.5rem;
+        background: rgb(26, 173, 26);
+        font-weight: bold;
+        border-radius: 4px;
+      }
+
+      #time span {
+        margin: 0 0.25rem;
+      }
+
+      #ad {
+        margin: 1.5rem 2rem;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
   <body>
-    <h1>كل يوم حكمة جديدة</h1>
-    <hr />
-    <section id="hekma">
-      <h2>حكمة اليوم</h2>
+    <h3 class="secondary-header-color">شكرا لمسح الكود</h3>
+    <h1 class="border secondary-bg-color">كل يوم حكمة جديدة</h1>
+    <section id="hekma" class="border">
+      <h2 class="secondary-header-color">حكمة اليوم</h2>
     </section>
     <div id="remaining"></div>
+    <section id="ad" class="border secondary-bg-color">
+      مساحة إعلانية
+    </section>
     <script>
       !(function(e) {
         var t = {};
-        function r(n) {
-          if (t[n]) return t[n].exports;
-          var o = (t[n] = { i: n, l: !1, exports: {} });
-          return e[n].call(o.exports, o, o.exports, r), (o.l = !0), o.exports;
+        function n(r) {
+          if (t[r]) return t[r].exports;
+          var o = (t[r] = { i: r, l: !1, exports: {} });
+          return e[r].call(o.exports, o, o.exports, n), (o.l = !0), o.exports;
         }
-        (r.m = e),
-          (r.c = t),
-          (r.d = function(e, t, n) {
-            r.o(e, t) ||
-              Object.defineProperty(e, t, { enumerable: !0, get: n });
+        (n.m = e),
+          (n.c = t),
+          (n.d = function(e, t, r) {
+            n.o(e, t) ||
+              Object.defineProperty(e, t, { enumerable: !0, get: r });
           }),
-          (r.r = function(e) {
+          (n.r = function(e) {
             "undefined" != typeof Symbol &&
               Symbol.toStringTag &&
               Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
               Object.defineProperty(e, "__esModule", { value: !0 });
           }),
-          (r.t = function(e, t) {
-            if ((1 & t && (e = r(e)), 8 & t)) return e;
+          (n.t = function(e, t) {
+            if ((1 & t && (e = n(e)), 8 & t)) return e;
             if (4 & t && "object" == typeof e && e && e.__esModule) return e;
-            var n = Object.create(null);
+            var r = Object.create(null);
             if (
-              (r.r(n),
-              Object.defineProperty(n, "default", { enumerable: !0, value: e }),
+              (n.r(r),
+              Object.defineProperty(r, "default", { enumerable: !0, value: e }),
               2 & t && "string" != typeof e)
             )
               for (var o in e)
-                r.d(
-                  n,
+                n.d(
+                  r,
                   o,
                   function(t) {
                     return e[t];
                   }.bind(null, o)
                 );
-            return n;
+            return r;
           }),
-          (r.n = function(e) {
+          (n.n = function(e) {
             var t =
               e && e.__esModule
                 ? function() {
@@ -87,46 +148,51 @@
                 : function() {
                     return e;
                   };
-            return r.d(t, "a", t), t;
+            return n.d(t, "a", t), t;
           }),
-          (r.o = function(e, t) {
+          (n.o = function(e, t) {
             return Object.prototype.hasOwnProperty.call(e, t);
           }),
-          (r.p = ""),
-          r((r.s = 0));
+          (n.p = ""),
+          n((n.s = 0));
       })([
         function(e, t) {
-          const r = document.getElementById("hekma"),
-            n = document.getElementById("remaining");
+          const n = document.getElementById("hekma"),
+            r = document.getElementById("remaining");
           (async () => {
             const e = new Date().getTime();
             if (localStorage.hekma && localStorage.expiry > e)
-              r.innerHTML += `<p>${localStorage.hekma}</p>`;
+              n.innerHTML += `<p>${localStorage.hekma}</p>`;
             else {
               localStorage.removeItem("hekma"),
                 localStorage.removeItem("expiry");
-              const t = await fetch(
-                  "https://dry-waters-17965.herokuapp.com/daily-hekma",
-                  { method: "GET" }
-                ),
-                { text: n } = await t.json();
-              (r.innerHTML += `<p>${n}</p>`),
-                (localStorage.hekma = n),
+              const t = await fetch("https://dry-waters-17965/daily-hekma", {
+                  method: "GET"
+                }),
+                { text: r } = await t.json();
+              (n.innerHTML += `<p>${r}</p>`),
+                (localStorage.hekma = r),
                 (localStorage.expiry = e + 864e5);
             }
             const t = setInterval(() => {
               const e = Math.floor(
                   (localStorage.expiry - new Date().getTime()) / 1e3
                 ),
-                r = Math.floor(e / 60 / 60),
+                n = Math.floor(e / 60 / 60),
                 o = Math.floor((e / 60) % 60),
                 a = e % 60;
-              (n.innerHTML = `\n    ستتاح حكمة جديدة بعد ${r} ساعة و ${o} دقيقة و ${a} ثانية\n  `),
-                0 == r &&
+              (r.innerHTML = `\n      الحكمة القادمة بعد <span id="time">\n      ${
+                1 == String(n).length ? "0" + n : n
+              }<span>:</span>${
+                1 == String(o).length ? "0" + o : o
+              }<span>:</span>${
+                1 == String(a).length ? "0" + a : a
+              }\n      </span>\n    `),
+                0 == n &&
                   0 == o &&
                   0 == a &&
                   (clearInterval(t),
-                  (n.innerHTML = "قم بتحديث الصفحة  لرؤية حكمة اليوم"));
+                  (r.innerHTML = "قم بتحديث الصفحة  لرؤية حكمة اليوم"));
             }, 1e3);
           })();
         }
