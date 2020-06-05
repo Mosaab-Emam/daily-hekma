@@ -15,7 +15,7 @@
       }
 
       .secondary-bg-color {
-        background: #3737e7;
+        background: #0069b2;
       }
 
       .border {
@@ -29,7 +29,7 @@
 
       body {
         font-family: "29ltbukrabold";
-        background: #ff003f;
+        background: #e51a4b;
         font-size: 14px;
         margin: 0;
         text-align: center;
@@ -72,7 +72,7 @@
       #time {
         margin: 0 0.5rem;
         padding: 0.5rem;
-        background: rgb(26, 173, 26);
+        background: #61a375;
         font-weight: bold;
         border-radius: 4px;
       }
@@ -82,11 +82,14 @@
       }
 
       #ad {
-        margin: 1.5rem 2rem;
-        height: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        margin: 1.5rem auto;
+        width: 280px;
+        height: 280px;
+      }
+
+      #ad img {
+        width: 100%;
+        height: 100%;
       }
     </style>
   </head>
@@ -97,8 +100,8 @@
       <h2 class="secondary-header-color">حكمة اليوم</h2>
     </section>
     <div id="remaining"></div>
-    <section id="ad" class="border secondary-bg-color">
-      مساحة إعلانية
+    <section id="ad-section">
+      <img src="https://dry-waters-17965.herokuapp.com/ad" alt="مساحة إعلانية" id="ad" />
     </section>
     <script>
       !(function(e) {
@@ -159,42 +162,54 @@
         function(e, t) {
           const n = document.getElementById("hekma"),
             r = document.getElementById("remaining");
+          let o;
           (async () => {
-            const e = new Date().getTime();
-            if (localStorage.hekma && localStorage.expiry > e)
+            const e = await fetch(
+                "https://dry-waters-17965.herokuapp.com/link"
+              ),
+              t = await e.json();
+            o = t.link;
+            const a = new Date().getTime();
+            if (localStorage.hekma && localStorage.expiry > a)
               n.innerHTML += `<p>${localStorage.hekma}</p>`;
             else {
               localStorage.removeItem("hekma"),
                 localStorage.removeItem("expiry");
-              const t = await fetch("https://dry-waters-17965.herokuapp.com/daily-hekma", {
-                  method: "GET"
-                }),
-                { text: r } = await t.json();
-              (n.innerHTML += `<p>${r}</p>`),
-                (localStorage.hekma = r),
-                (localStorage.expiry = e + 864e5);
+              const e = await fetch(
+                  "https://dry-waters-17965.herokuapp.com/daily-hekma",
+                  { method: "GET" }
+                ),
+                { text: t } = await e.json();
+              (n.innerHTML += `<p>${t}</p>`),
+                (localStorage.hekma = t),
+                (localStorage.expiry = a + 864e5);
             }
-            const t = setInterval(() => {
+            const l = setInterval(() => {
               const e = Math.floor(
                   (localStorage.expiry - new Date().getTime()) / 1e3
                 ),
-                n = Math.floor(e / 60 / 60),
-                o = Math.floor((e / 60) % 60),
-                a = e % 60;
+                t = Math.floor(e / 60 / 60),
+                n = Math.floor((e / 60) % 60),
+                o = e % 60;
               (r.innerHTML = `\n      الحكمة القادمة بعد <span id="time">\n      ${
+                1 == String(t).length ? "0" + t : t
+              }<span>:</span>${
                 1 == String(n).length ? "0" + n : n
               }<span>:</span>${
                 1 == String(o).length ? "0" + o : o
-              }<span>:</span>${
-                1 == String(a).length ? "0" + a : a
               }\n      </span>\n    `),
-                0 == n &&
+                0 == t &&
+                  0 == n &&
                   0 == o &&
-                  0 == a &&
-                  (clearInterval(t),
+                  (clearInterval(l),
                   (r.innerHTML = "قم بتحديث الصفحة  لرؤية حكمة اليوم"));
             }, 1e3);
-          })();
+          })(),
+            document
+              .getElementById("ad-section")
+              .addEventListener("click", async () => {
+                window.open(o, "_blank");
+              });
         }
       ]);
     </script>
